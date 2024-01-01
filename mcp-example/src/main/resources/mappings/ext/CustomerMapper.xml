@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.vlts.example.repository.CustomerDao">
+
+    <select id="selectOneById" resultType="cn.vlts.example.model.query.result.CustomerResult">
+        select *
+        from customer
+        where id = #{id}
+        limit 1
+    </select>
+
+    <select id="selectOneAnnoById" resultType="cn.vlts.example.model.query.result.CustomerAnnoResult">
+        select *
+        from customer
+        where id = #{id}
+        limit 1
+    </select>
+
+    <select id="selectOneConfigById" resultType="cn.vlts.example.model.query.result.CustomerConfigResult">
+        select *
+        from customer
+        where id = #{id}
+        limit 1
+    </select>
+</mapper>

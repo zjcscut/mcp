@@ -1,0 +1,35 @@
+[
+  {
+    "className": "cn.vlts.example.model.entity.Customer",
+    "msIdList": [
+      "cn.vlts.example.repository.mapper.CustomerMapper.insertSelective",
+      "cn.vlts.example.repository.mapper.CustomerMapper.updateByPrimaryKeySelective"
+    ],
+    "rsmIdList": [
+      "cn.vlts.example.repository.CustomerDao.selectOneById-Inline"
+    ],
+    "fields": [
+      {
+        "name": "customerName"
+      },
+      {
+        "name": "phone"
+      }
+    ]
+  },
+  {
+    "className": "cn.vlts.example.model.query.result.CustomerConfigResult",
+    "fields": [
+      {
+        "name": "customerName",
+        "key": "1234567890123456",
+        "algorithm": "AES_ECB_PKCS5PADDING_BASE64"
+      },
+      {
+        "name": "phone",
+        "key": "${customer.aes.key}",
+        "cryptoProcessor": "cn.vlts.example.spi.CustomCryptoProcessor"
+      }
+    ]
+  }
+]
