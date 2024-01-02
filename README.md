@@ -1,6 +1,6 @@
 # MCP
 
-`MCP`（`MyBatis Crypto Plugin`）是一个基于Mybatis插件进行自定义扩展的实时编码解码（支持灵活的加解密配置）组件，具备以下功能：
+`MCP`（`MyBatis Crypto Plugin`）是一个基于Mybatis插件进行自定义扩展的实时加解密（支持灵活的加解密配置）组件，具备以下功能：
 
 - 全局配置加解密方案
 - 支持参数注入模式（实验性功能，直接通过修改`Mybatis`源码注入`TypeHandler`包装器）、反射模式
