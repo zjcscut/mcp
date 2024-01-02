@@ -279,3 +279,7 @@ public class CustomCryptoProcessor implements DuplexStringCryptoProcessor {
 
 通过外置配置文件加载的加解密处理器 > 注解声明式中自定义加解密处理器 > 注解声明式中内置加解密处理器 > 全局加解密处理器 >
 原始加解密处理器（关闭快速失败模式）
+
+## LICENSE
+
+This code is distributed under the MIT License. See **LICENSE** in this directory.
