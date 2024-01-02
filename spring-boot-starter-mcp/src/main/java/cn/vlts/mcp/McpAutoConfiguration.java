@@ -102,7 +102,7 @@ public class McpAutoConfiguration {
     }
 
     @Bean
-    public McpInternalInterceptor mybatisCryptoInternalInterceptor(CryptoProcessorFactory cryptoProcessorFactory,
+    public McpInternalInterceptor mcpInternalInterceptor(CryptoProcessorFactory cryptoProcessorFactory,
                                                                    FieldCryptoProcessorRegistry fieldCryptoProcessorRegistry,
                                                                    ObjectProvider<List<CryptoConfigConfigurer>> cryptoConfigConfigurerList,
                                                                    ObjectProvider<ReferenceCryptoMatcher> referenceCryptoMatcher) {
@@ -116,7 +116,7 @@ public class McpAutoConfiguration {
     }
 
     @Bean
-    public McpCoreInterceptor mybatisCodecCoreInterceptor(ObjectProvider<List<InternalInterceptor>> internalInterceptorList) {
+    public McpCoreInterceptor mcpCoreInterceptor(ObjectProvider<List<InternalInterceptor>> internalInterceptorList) {
         McpCoreInterceptor mcpCoreInterceptor = new McpCoreInterceptor();
         Optional.ofNullable(internalInterceptorList.getIfAvailable())
                 .orElse(new ArrayList<>())
