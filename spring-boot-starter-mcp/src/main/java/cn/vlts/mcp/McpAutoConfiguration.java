@@ -27,11 +27,11 @@ package cn.vlts.mcp;
 import cn.vlts.mcp.config.McpConfig;
 import cn.vlts.mcp.crypto.*;
 import cn.vlts.mcp.spi.*;
-import cn.vlts.mcp.util.McpReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -73,11 +73,11 @@ public class McpAutoConfiguration {
     }
 
     @Bean(destroyMethod = "close")
-    public McpInitializer mybatisCodecPluginInitializer(CryptoProcessorFactory cryptoProcessorFactory,
-                                                        FieldCryptoProcessorRegistry fieldCryptoProcessorRegistry,
-                                                        FieldCryptoProcessorChooser fieldCryptoProcessorChooser,
-                                                        GlobalConfigProvider globalConfigProvider,
-                                                        ObjectProvider<List<CryptoConfigConfigurer>> cryptoConfigConfigurerList) {
+    public McpInitializer mcpInitializer(CryptoProcessorFactory cryptoProcessorFactory,
+                                         FieldCryptoProcessorRegistry fieldCryptoProcessorRegistry,
+                                         FieldCryptoProcessorChooser fieldCryptoProcessorChooser,
+                                         GlobalConfigProvider globalConfigProvider,
+                                         ObjectProvider<List<CryptoConfigConfigurer>> cryptoConfigConfigurerList) {
         McpInitializer initializer = new McpInitializer(
                 mcpProperties.getTypePackages(),
                 cryptoProcessorFactory,
@@ -91,21 +91,22 @@ public class McpAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public CryptoProcessorFactory cryptoProcessorFactory() {
-        McpReflectionUtils.attachExternalProvider(new SpringExternalReflectionProvider());
         return new DefaultCryptoProcessorFactory();
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public FieldCryptoProcessorRegistry fieldCryptoProcessorRegistry() {
         return new DefaultFieldCryptoProcessorRegistry();
     }
 
     @Bean
     public McpInternalInterceptor mcpInternalInterceptor(CryptoProcessorFactory cryptoProcessorFactory,
-                                                                   FieldCryptoProcessorRegistry fieldCryptoProcessorRegistry,
-                                                                   ObjectProvider<List<CryptoConfigConfigurer>> cryptoConfigConfigurerList,
-                                                                   ObjectProvider<ReferenceCryptoMatcher> referenceCryptoMatcher) {
+                                                         FieldCryptoProcessorRegistry fieldCryptoProcessorRegistry,
+                                                         ObjectProvider<List<CryptoConfigConfigurer>> cryptoConfigConfigurerList,
+                                                         ObjectProvider<ReferenceCryptoMatcher> referenceCryptoMatcher) {
         return new McpInternalInterceptor(
                 toMcpConfig(),
                 cryptoProcessorFactory,
