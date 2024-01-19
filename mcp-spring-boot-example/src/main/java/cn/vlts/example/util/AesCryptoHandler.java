@@ -36,6 +36,8 @@ import static cn.vlts.example.util.AesUtils.AES_KEY;
 
 
 /**
+ * AES实现的MyBatis加解密类型处理器
+ *
  * @author throwable
  * @version v1
  * @description

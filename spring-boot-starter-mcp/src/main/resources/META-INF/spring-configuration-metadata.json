@@ -1,0 +1,75 @@
+{
+  "groups": [
+    {
+      "name": "mcp",
+      "type": "cn.vlts.mcp.McpProperties",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "MCP配置"
+    }
+  ],
+  "properties": [
+    {
+      "name": "mcp.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "defaultValue": true,
+      "description": "是否启用MCP"
+    },
+    {
+      "name": "mcp.fast-fail",
+      "type": "java.lang.Boolean",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "defaultValue": true,
+      "description": "是否启用快速失败"
+    },
+    {
+      "name": "mcp.global-crypto-algorithm",
+      "type": "java.lang.String",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "全局内置加解密算法,见CryptoAlgorithm"
+    },
+    {
+      "name": "mcp.global-crypto-processor",
+      "type": "java.lang.String",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "全局加解密处理器全类型名称"
+    },
+    {
+      "name": "mcp.global-iv",
+      "type": "java.lang.String",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "全局对称加密向量"
+    },
+    {
+      "name": "mcp.global-key",
+      "type": "java.lang.String",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "全局对称加密密钥"
+    },
+    {
+      "name": "mcp.global-pri-key",
+      "type": "java.lang.String",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "全局非对称加密私钥"
+    },
+    {
+      "name": "mcp.global-pub-key",
+      "type": "java.lang.String",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "全局非对称加密公钥"
+    },
+    {
+      "name": "mcp.mode",
+      "type": "cn.vlts.mcp.common.Mode",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "MCP模式,reflection-反射模式（默认）,param_inject-参数注入模式（实验性）"
+    },
+    {
+      "name": "mcp.type-packages",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "cn.vlts.mcp.McpProperties",
+      "description": "需要扫描进行预加载的实体类型包路径集合"
+    }
+  ],
+  "hints": []
+}

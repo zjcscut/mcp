@@ -27,13 +27,12 @@ package cn.vlts.mcp;
 
 import cn.vlts.mcp.crypto.CryptoConfig;
 import cn.vlts.mcp.crypto.CryptoConfigConfigurer;
-import cn.vlts.mcp.spi.CryptoField;
+import cn.vlts.mcp.spi.CryptoTarget;
 import org.springframework.beans.factory.config.BeanExpressionContext;
 import org.springframework.beans.factory.config.BeanExpressionResolver;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Field;
 import java.util.Objects;
 
 /**
@@ -55,7 +54,7 @@ public class SpEvnCryptoConfigConfigurer implements CryptoConfigConfigurer {
     }
 
     @Override
-    public void apply(Field field, CryptoField cryptoField, CryptoConfig config) {
+    public void apply(CryptoTarget cryptoTarget, CryptoConfig config) {
         config.setKey(evaluateValue(config.getKey()));
         config.setIv(evaluateValue(config.getIv()));
         config.setPubKey(evaluateValue(config.getPubKey()));

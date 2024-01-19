@@ -28,6 +28,7 @@ package cn.vlts.mcp;
 import cn.vlts.mcp.common.CryptoAlgorithm;
 import cn.vlts.mcp.crypto.*;
 import cn.vlts.mcp.spi.CryptoField;
+import cn.vlts.mcp.spi.CryptoTarget;
 import cn.vlts.mcp.spi.GlobalConfigProvider;
 import cn.vlts.mcp.util.*;
 import org.slf4j.Logger;
@@ -153,8 +154,8 @@ public class McpInitializer {
                 .filter(item -> !CollectionUtils.isEmpty(item.getRsmIdList()))
                 .collect(Collectors.toList());
         processClassConfigList(classConfigList);
-        msConfigList.forEach(item -> processKeysConfigList(item.getFields(), item.getMsIdList()));
-        rsmConfigList.forEach(item -> processKeysConfigList(item.getFields(), item.getRsmIdList()));
+        msConfigList.forEach(item -> processKeysConfigList(item.getFields(), item.getMsIdList(), true));
+        rsmConfigList.forEach(item -> processKeysConfigList(item.getFields(), item.getRsmIdList(), false));
     }
 
     private void processClassConfigList(List<ExternalConfigFileItem> classConfigList) {
@@ -182,7 +183,8 @@ public class McpInitializer {
                         fieldConfig.setIv(fieldItem.getIv());
                         fieldConfig.setPubKey(fieldItem.getPubKey());
                         fieldConfig.setPriKey(fieldItem.getPriKey());
-                        DuplexStringCryptoProcessor cryptoProcessor = buildFieldCryptoProcessor(field, fieldConfig,
+                        CryptoTarget cryptoTarget = CryptoTarget.fromJavaField(field);
+                        DuplexStringCryptoProcessor cryptoProcessor = buildCryptoTargetCryptoProcessor(cryptoTarget, fieldConfig,
                                 fieldItem.getAlgorithm(), fieldItem.getCryptoProcessor());
                         if (Objects.nonNull(cryptoProcessor)) {
                             fieldCryptoProcessorRegistry.registerFieldCryptoProcessor(field, cryptoProcessor);
@@ -193,7 +195,7 @@ public class McpInitializer {
         }
     }
 
-    private void processKeysConfigList(List<ExternalConfigFieldItem> fields, List<String> keys) {
+    private void processKeysConfigList(List<ExternalConfigFieldItem> fields, List<String> keys, boolean isMsId) {
         if (CollectionUtils.isEmpty(fields) || CollectionUtils.isEmpty(keys)) {
             return;
         }
@@ -206,7 +208,13 @@ public class McpInitializer {
                     fieldConfig.setIv(fieldItem.getIv());
                     fieldConfig.setPubKey(fieldItem.getPubKey());
                     fieldConfig.setPriKey(fieldItem.getPriKey());
-                    DuplexStringCryptoProcessor cryptoProcessor = buildFieldCryptoProcessor(null, fieldConfig,
+                    CryptoTarget cryptoTarget;
+                    if (isMsId) {
+                        cryptoTarget = CryptoTarget.fromMsId(key, property);
+                    } else {
+                        cryptoTarget = CryptoTarget.fromRsmId(key, property);
+                    }
+                    DuplexStringCryptoProcessor cryptoProcessor = buildCryptoTargetCryptoProcessor(cryptoTarget, fieldConfig,
                             fieldItem.getAlgorithm(), fieldItem.getCryptoProcessor());
                     if (Objects.nonNull(cryptoProcessor)) {
                         fieldCryptoProcessorRegistry.registerKeysCryptoProcessor(MultiKey.newInstance(key, property), cryptoProcessor);
@@ -235,16 +243,16 @@ public class McpInitializer {
     }
 
     @SuppressWarnings("unchecked")
-    private DuplexStringCryptoProcessor buildFieldCryptoProcessor(Field field,
-                                                                  CryptoConfig fieldConfig,
-                                                                  String algorithm,
-                                                                  String cryptoProcessor) {
+    private DuplexStringCryptoProcessor buildCryptoTargetCryptoProcessor(CryptoTarget cryptoTarget,
+                                                                         CryptoConfig fieldConfig,
+                                                                         String algorithm,
+                                                                         String cryptoProcessor) {
         try {
             if (McpStringUtils.X.isNotBlank(cryptoProcessor)) {
                 Class<? extends DuplexStringCryptoProcessor> cryptoProcessorType =
                         (Class<? extends DuplexStringCryptoProcessor>) ClassUtils.forName(cryptoProcessor, null);
                 if (!Objects.equals(DuplexStringCryptoProcessor.class, cryptoProcessorType)) {
-                    CryptoConfig config = buildFieldCryptoConfig(field, fieldConfig);
+                    CryptoConfig config = buildFieldCryptoConfig(cryptoTarget, fieldConfig);
                     DuplexStringCryptoProcessor customCryptoProcessor
                             = cryptoProcessorFactory.loadCustomCryptoProcessor(cryptoProcessorType, config);
                     customCryptoProcessor.init(cryptoProcessorType.getName(), config);
@@ -253,7 +261,7 @@ public class McpInitializer {
             }
             CryptoAlgorithm cryptoAlgorithm = CryptoAlgorithm.fromCryptoAlgorithm(algorithm);
             if (Objects.nonNull(cryptoAlgorithm) && !Objects.equals(CryptoAlgorithm.RAW, cryptoAlgorithm)) {
-                CryptoConfig config = buildFieldCryptoConfig(field, fieldConfig);
+                CryptoConfig config = buildFieldCryptoConfig(cryptoTarget, fieldConfig);
                 DuplexStringCryptoProcessor buildInCryptoProcessor
                         = cryptoProcessorFactory.loadBuildInCryptoProcessor(cryptoAlgorithm, config);
                 buildInCryptoProcessor.init(cryptoAlgorithm.name(), config);
@@ -263,8 +271,8 @@ public class McpInitializer {
                 return globalConfigProvider.getGlobalCryptoProcessor();
             }
         } catch (Exception e) {
-            if (Objects.nonNull(field)) {
-                LOGGER.warn("加载外部配置字段加解密处理器失败,字段:{}-{}", field.getDeclaringClass().getName(), field.getName(), e);
+            if (Objects.nonNull(cryptoTarget)) {
+                LOGGER.warn("加载外部配置字段加解密处理器失败,目标:{}", cryptoTarget.key(), e);
             } else {
                 LOGGER.warn("加载外部配置字段加解密处理器失败", e);
             }
@@ -272,10 +280,10 @@ public class McpInitializer {
         return null;
     }
 
-    private CryptoConfig buildFieldCryptoConfig(Field field, CryptoConfig fieldConfig) {
+    private CryptoConfig buildFieldCryptoConfig(CryptoTarget cryptoTarget, CryptoConfig fieldConfig) {
         for (CryptoConfigConfigurer configurer : cryptoConfigConfigurerList) {
-            if (configurer.match(field, null)) {
-                configurer.apply(field, null, fieldConfig);
+            if (configurer.match(cryptoTarget)) {
+                configurer.apply(cryptoTarget, fieldConfig);
             }
         }
         if (McpStringUtils.X.isBlank(fieldConfig.getKey())) {

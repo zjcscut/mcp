@@ -65,6 +65,7 @@ public class MapperScannerRegistrarConfiguration {
             EnvironmentAware, ImportBeanDefinitionRegistrar {
 
         private Environment environment;
+
         private BeanFactory beanFactory;
 
         @Override

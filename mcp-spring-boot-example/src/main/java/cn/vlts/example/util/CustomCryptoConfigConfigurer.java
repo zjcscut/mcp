@@ -26,14 +26,15 @@ package cn.vlts.example.util;
 
 import cn.vlts.mcp.crypto.CryptoConfig;
 import cn.vlts.mcp.crypto.CryptoConfigConfigurer;
-import cn.vlts.mcp.spi.CryptoField;
+import cn.vlts.mcp.spi.CryptoTarget;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
 import java.util.Objects;
 
 /**
+ * 自定义加解密配置配置器
+ *
  * @author throwable
  * @version v1
  * @description
@@ -44,9 +45,9 @@ import java.util.Objects;
 public class CustomCryptoConfigConfigurer implements CryptoConfigConfigurer {
 
     @Override
-    public void apply(Field field, CryptoField cryptoField, CryptoConfig config) {
-        if (Objects.nonNull(field)) {
-            if (Objects.equals(field.getName(), "foo")){
+    public void apply(CryptoTarget cryptoTarget, CryptoConfig config) {
+        if (cryptoTarget.isJavaField()) {
+            if (Objects.equals(cryptoTarget.fieldName(), "foo")) {
                 config.setKey("1111111122222222");
             }
         }

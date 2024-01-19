@@ -39,10 +39,12 @@ import java.util.Base64;
 import java.util.Random;
 
 /**
- * @Author yangshijie
- * @Version 1.0
- * @Date 2023/6/14 16:51
- * @Description
+ * AES工具
+ *
+ * @author throwable
+ * @version 1.0
+ * @description AES工具
+ * @since 2023/6/14 16:51
  **/
 
 @Slf4j

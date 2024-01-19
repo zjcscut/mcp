@@ -24,9 +24,7 @@
 
 package cn.vlts.mcp.crypto;
 
-import cn.vlts.mcp.spi.CryptoField;
-
-import java.lang.reflect.Field;
+import cn.vlts.mcp.spi.CryptoTarget;
 
 /**
  * 加解密配置配置器
@@ -43,11 +41,10 @@ public interface CryptoConfigConfigurer {
     /**
      * 匹配
      *
-     * @param field       field
-     * @param cryptoField cryptoField
+     * @param cryptoTarget cryptoTarget
      * @return match result
      */
-    default boolean match(Field field, CryptoField cryptoField) {
+    default boolean match(CryptoTarget cryptoTarget) {
         return true;
     }
 
@@ -63,9 +60,8 @@ public interface CryptoConfigConfigurer {
     /**
      * 应用
      *
-     * @param field       field
-     * @param cryptoField cryptoField
-     * @param config      config
+     * @param cryptoTarget cryptoTarget
+     * @param config       config
      */
-    void apply(Field field, CryptoField cryptoField, CryptoConfig config);
+    void apply(CryptoTarget cryptoTarget, CryptoConfig config);
 }

@@ -295,9 +295,10 @@ public class McpInternalInterceptor implements InternalInterceptor, FieldCryptoP
         fieldConfig.setIv(cryptoField.iv());
         fieldConfig.setPubKey(cryptoField.pubKey());
         fieldConfig.setPriKey(cryptoField.priKey());
+        CryptoTarget cryptoTarget = CryptoTarget.fromJavaField(field);
         for (CryptoConfigConfigurer configurer : cryptoConfigConfigurerList) {
-            if (configurer.match(field, cryptoField)) {
-                configurer.apply(field, cryptoField, fieldConfig);
+            if (configurer.match(cryptoTarget)) {
+                configurer.apply(cryptoTarget, fieldConfig);
             }
         }
         if (McpStringUtils.X.isBlank(fieldConfig.getKey())) {
