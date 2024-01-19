@@ -37,7 +37,7 @@ import org.springframework.util.ReflectionUtils;
  * @description Spring外部放射提供者
  * @since 2023/12/22 10:11
  */
-public class SpringExternalReflectionProvider implements ExternalReflectionProvider {
+public class SpExternalReflectionProvider implements ExternalReflectionProvider {
 
     @Override
     public void doWithFields(Class<?> clazz, McpReflectionUtils.FieldCallback fc, McpReflectionUtils.FieldFilter ff) {

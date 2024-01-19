@@ -129,7 +129,7 @@ public class McpInitializer {
         if (iterator.hasNext()) {
             McpReflectionUtils.attachExternalProvider(iterator.next());
         } else {
-            McpReflectionUtils.attachExternalProvider(new SpringExternalReflectionProvider());
+            McpReflectionUtils.attachExternalProvider(new SpExternalReflectionProvider());
         }
     }
 
