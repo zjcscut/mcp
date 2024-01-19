@@ -158,7 +158,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>cn.vlts.example.McpExampleApplication</mainClass>
+                    <mainClass>cn.vlts.example.McpSpringBootExampleApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,9 +1,9 @@
 # MCP
 
-`MCP`（`MyBatis Crypto Plugin`）是一个基于MyBatis插件进行自定义扩展的实时加解密（支持灵活的加解密配置）组件，具备以下功能：
+`MCP`（`MyBatis Crypto Plugin`）是一个基于`MyBatis`插件进行自定义扩展的实时加解密（支持灵活的加解密配置）组件，具备以下功能：
 
 - 全局配置加解密方案
-- 支持参数注入模式（实验性功能，直接通过修改`Mybatis`源码注入`TypeHandler`包装器）、反射模式
+- 支持参数注入模式（实验性功能，直接通过修改`MyBatis`源码注入`TypeHandler`包装器）和反射模式（默认模式）
 - 外置加解密规则配置
 - 声明式（注解）加解密配置
 - 内置加解密算法
@@ -17,7 +17,6 @@
 引入依赖：
 
 ```xml
-
 <dependencies>
     <dependency>
         <groupId>org.mybatis</groupId>
@@ -44,7 +43,10 @@
 `MCP`底层基于`MyBatis`插件进行实现，核心拦截器是`McpCoreInterceptor`。如果使用`SqlSessionFactoryBean`
 创建`SqlSessionFactory`需要手动设置插件`SqlSessionFactoryBean#setPlugins([McpCoreInterceptor])`
 
-使用的例子见：mcp-example
+使用的例子：
+
+- 非`SpringBoot`项目：[mcp-example](mcp-example)
+- `SpringBoot`项目：[mcp-spring-boot-example](mcp-spring-boot-example)
 
 ## 配置
 
@@ -230,10 +232,9 @@ public class CustomReflectionProvider implements ExternalReflectionProvider {
 public class CustomCryptoConfigConfigurer implements CryptoConfigConfigurer {
 
     @Override
-    public void apply(Field field, CryptoField cryptoField, CryptoConfig config) {
-        if (Objects.nonNull(field)) {
-            // foo命名的属性的加解密密钥替换为'1111111122222222'
-            if (Objects.equals(field.getName(), "foo")) {
+    public void apply(CryptoTarget cryptoTarget, CryptoConfig config) {
+        if (cryptoTarget.isJavaField()) {
+            if (Objects.equals(cryptoTarget.fieldName(), "foo")) {
                 config.setKey("1111111122222222");
             }
         }

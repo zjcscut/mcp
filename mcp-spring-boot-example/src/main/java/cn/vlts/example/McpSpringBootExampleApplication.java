@@ -34,7 +34,6 @@ import cn.vlts.example.repository.CustomerDao;
 import cn.vlts.example.repository.FooDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -43,6 +42,8 @@ import org.springframework.util.Assert;
 import java.util.Date;
 
 /**
+ * main entry
+ *
  * @author throwable
  * @version v1
  * @description main entry
@@ -51,14 +52,14 @@ import java.util.Date;
 @SpringBootApplication(scanBasePackages = "cn.vlts")
 @Slf4j
 @RequiredArgsConstructor
-public class McpExampleApplication implements CommandLineRunner {
+public class McpSpringBootExampleApplication implements CommandLineRunner {
 
     private final CustomerDao customerDao;
 
     private final FooDao fooDao;
 
     public static void main(String[] args) {
-        SpringApplication.run(McpExampleApplication.class, args);
+        SpringApplication.run(McpSpringBootExampleApplication.class, args);
     }
 
     @Override

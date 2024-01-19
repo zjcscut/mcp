@@ -44,6 +44,9 @@
         <mcp.version>1.0.0-SNAPSHOT</mcp.version>
         <mybatis.version>3.5.15</mybatis.version>
         <lombok.version>1.18.30</lombok.version>
+        <h2.version>2.2.224</h2.version>
+        <commons.codec.version>1.16.0</commons.codec.version>
+        <logback.version>1.2.12</logback.version>
     </properties>
     <dependencies>
         <dependency>
@@ -61,6 +64,21 @@
             <groupId>cn.vlts</groupId>
             <artifactId>mcp-core</artifactId>
             <version>${mcp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
     </dependencies>
     <build>
