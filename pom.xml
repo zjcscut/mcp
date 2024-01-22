@@ -29,7 +29,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.vlts</groupId>
     <artifactId>mcp</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <name>mcp</name>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <url>https://github.com/zjcscut/mcp</url>
     <description>MCP（MyBatis Crypto Plugin）</description>
@@ -72,7 +73,7 @@
     <scm>
         <connection>https://github.com/zjcscut/mcp.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:zjcscut/mcp.git</developerConnection>
-        <url>https://github.com/zjcscut/mcp</url>
+        <url>https://github.com/zjcscut/mcp/tree/main</url>
     </scm>
     <dependencyManagement>
         <dependencies>

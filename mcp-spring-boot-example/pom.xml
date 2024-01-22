@@ -28,7 +28,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.vlts</groupId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <artifactId>mcp-spring-boot-example</artifactId>
     <properties>
@@ -42,7 +42,7 @@
         <maven.install.version>3.0.0-M1</maven.install.version>
         <maven.dependency.version>3.2.0</maven.dependency.version>
         <spring.boot.version>2.7.18</spring.boot.version>
-        <mcp.version>1.0.0-SNAPSHOT</mcp.version>
+        <mcp.version>1.0.0</mcp.version>
         <mybatis.version>3.5.15</mybatis.version>
         <mybatis.spring.version>2.1.2</mybatis.spring.version>
         <guava.version>33.0.0-jre</guava.version>
