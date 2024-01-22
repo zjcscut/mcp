@@ -59,8 +59,9 @@
 </dependencies>
 ```
 
->`MCP`的最新版本可以从`Maven`
-中央仓库查询：[`https://central.sonatype.com/artifact/cn.vlts/mcp`](https://central.sonatype.com/artifact/cn.vlts/mcp)
+> `MCP`的最新版本可以从`Maven`
+> [`Maven`中央仓库](https://central.sonatype.com/artifact/cn.vlts/mcp)
+> 或者[mvnrepository.com](https://mvnrepository.com/artifact/cn.vlts/mcp)查询
 
 `MCP`底层基于`MyBatis`插件进行实现，核心拦截器是`McpCoreInterceptor`。如果使用`SqlSessionFactoryBean`
 创建`SqlSessionFactory`需要手动设置插件`SqlSessionFactoryBean#setPlugins([McpCoreInterceptor])`
