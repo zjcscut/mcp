@@ -14,9 +14,10 @@
 
 ## 使用方式
 
-引入依赖：
+`SpringBoot`体系中引入依赖：
 
 ```xml
+
 <dependencies>
     <dependency>
         <groupId>org.mybatis</groupId>
@@ -39,6 +40,27 @@
     </dependency>
 </dependencies>
 ```
+
+**非`SpringBoot`体系**中引入依赖：
+
+```xml
+
+<dependencies>
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>cn.vlts</groupId>
+        <artifactId>mcp-core</artifactId>
+        <version>${mcp.version}</version>
+    </dependency>
+</dependencies>
+```
+
+>`MCP`的最新版本可以从`Maven`
+中央仓库查询：[`https://central.sonatype.com/artifact/cn.vlts/mcp`](https://central.sonatype.com/artifact/cn.vlts/mcp)
 
 `MCP`底层基于`MyBatis`插件进行实现，核心拦截器是`McpCoreInterceptor`。如果使用`SqlSessionFactoryBean`
 创建`SqlSessionFactory`需要手动设置插件`SqlSessionFactoryBean#setPlugins([McpCoreInterceptor])`
