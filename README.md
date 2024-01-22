@@ -59,7 +59,7 @@
 </dependencies>
 ```
 
-> `MCP`的最新版本可以从`Maven`
+> `MCP`的最新版本可以从
 > [`Maven`中央仓库](https://central.sonatype.com/artifact/cn.vlts/mcp)
 > 或者[mvnrepository.com](https://mvnrepository.com/artifact/cn.vlts/mcp)查询
 
