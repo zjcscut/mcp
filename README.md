@@ -91,7 +91,7 @@ mcp.global-key=1234567890123456
 ## 全局对称加解密向量
 mcp.global-iv=1234567890123456
 ## 全局非对称加解密公钥
-mcp.plugin.global-pub-key=
+mcp.global-pub-key=
 ## 全局非对称加解密私钥
 mcp.global-pri-key=
 ## 需要预加载的使用@CryptoField声明的实体类所在包路径集合
